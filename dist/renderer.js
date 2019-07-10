@@ -1,7 +1,7 @@
 const source = $('#template').html()
 const template = Handlebars.compile(source)
 
-class renderer{
+class Renderer{
     constructor() {
         
     }
@@ -10,5 +10,9 @@ class renderer{
             const newHtml = template(city)
             $('body').append(newHtml)
         }
+    }
+    renderOne(city){
+        const newHtml = template(city)
+        $('body').append(newHtml)
     }
 }

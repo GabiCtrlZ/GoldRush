@@ -13,6 +13,7 @@ router.get('/city/:cityName', function (req, res) {
         city = ''
         return res.send('ilegal input')
     }
+    console.log(city)
     request.get(`${url}?key=${apiKey}&q=${city}`).then(function (response) {
 
         console.log('request was succsessful')
@@ -26,7 +27,8 @@ router.get('/city/:cityName', function (req, res) {
         }
         res.send(obj)
 
-    }).catch(function(err){
+    })
+    .catch(function(err){
         console.log('error')
         res.send('error')
     })

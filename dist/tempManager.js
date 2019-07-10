@@ -2,19 +2,16 @@ class TempManager{
     constructor(){
         this.cityData = []
     }
-    getDataFromDB(){
-        const promise = $.get('cities')
-        promise.then((data) =>{
-            this.cityData = data
-        })
-        .catch(function(err){console.log(err)})
+    async getDataFromDB(){
+        const data = await $.get('cities')
+        console.log(data)
+        this.cityData = data
+        return this.cityData
     }
-    getCityData(cityName){
-        const promise = $.get('city/' + cityName)
-        promise.then(data => {
-            this.cityData.push(data)
-        })
-        .catch(function(err){console.log(err)})
+    async getCityData(cityName){
+        const data = await $.get('city/' + cityName)
+        this.cityData.push(data)
+        return data
     }
     saveCity(cityName){
         const data = this.cityData.find(x => x.name == cityName)
