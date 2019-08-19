@@ -4,6 +4,7 @@ const request = require('request-promise')
 const router = express.Router()
 const apiKey = 'a0ece18dd52b481c98084956191007'
 const url = 'http://api.apixu.com/v1/forecast.json'
+const moment = require('moment')
 
 
 
@@ -16,7 +17,7 @@ router.get('/city/:cityName', function (req, res) {
     console.log(city)
     request.get(`${url}?key=${apiKey}&q=${city}`).then(function (response) {
 
-        console.log('request was succsessful')
+        console.log('get city request was succsessful')
         const data = JSON.parse(response)
         const obj = {
             name: data.location.name,
@@ -43,10 +44,13 @@ router.get('/cities', function (req, res) {
 
 router.post('/city', function (req, res) {
     const data = req.body
+    console.log(data)
+    if(data.name.length){
     data.name = data.name.toLowerCase()
     const newCity = new City(data)
     newCity.save()
     console.log('new data has been saved')
+    }
     res.end()
 })
 

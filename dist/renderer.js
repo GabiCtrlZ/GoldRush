@@ -7,9 +7,9 @@ class Renderer{
     }
     renderData(allCityData){
         for(let city of allCityData){
-            const newHtml = template(city)
-            $('body').append(newHtml)
+            this.renderOne(city)
         }
+        $('.save_button').attr('class', 'save_button fa fa-minus-square')
     }
     renderOne(city){
         const newHtml = template(city)

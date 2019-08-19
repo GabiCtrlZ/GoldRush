@@ -4,7 +4,7 @@ const path = require('path')
 const api = require('./routes/api')
 const mongoose = require('mongoose')
 const app = express()
-mongoose.connect('mongodb://localhost/cityWeatherDB', {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cityWeatherDB', {useNewUrlParser: true})
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,6 +15,6 @@ app.use('/', api)
 
 
 const port = 3000
-app.listen(port, function(){
+app.listen(process.env.PORT ||port, function(){
     console.log('Listening on port ' + port )
 })

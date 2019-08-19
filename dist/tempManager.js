@@ -4,8 +4,10 @@ class TempManager{
     }
     async getDataFromDB(){
         const data = await $.get('cities')
-        console.log(data)
-        this.cityData = data
+        for (let d of data){
+            const city = await $.get('city/' + d.name)
+            this.cityData.push(city)
+        }
         return this.cityData
     }
     async getCityData(cityName){
@@ -14,8 +16,14 @@ class TempManager{
         return data
     }
     saveCity(cityName){
-        const data = this.cityData.find(x => x.name == cityName)
-        const promise = $.post('city', data)
+        const promise = $.post('city', {name: cityName})
+        promise.catch(function(err){console.log(err)})
+    }
+    removeCity(cityName){
+        const promise = $.ajax({
+            type: "DELETE",
+            url: `city/${cityName}`
+        })
         promise.catch(function(err){console.log(err)})
     }
 }
